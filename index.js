@@ -105,9 +105,9 @@
         
         this.run = function() {
             if(!!this.tag && !!tagRunner[this.tag]) {
-                tagRunner[this.tag](this);
+                return tagRunner[this.tag](this);
             } else {
-                tagRunner['default'](this);
+                return tagRunner['default'](this);
             }
         };
         this.setRunner = function(tagName, func) {
