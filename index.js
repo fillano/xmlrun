@@ -90,9 +90,11 @@
                     case 1:
                     case 4:
                     case 7:
-                    case 8:
                     case 9:
                         this.child.push(new Node(this, child[i].nodeType, child[i].tagName, child[i].attributes, child[i].nodeValue, child[i].childNodes, depth+1));
+                        break;
+                    case 8:
+                        this.child.push(new Node(this, child[i].nodeType, child[i].tagName, child[i].attributes, child[i].data, child[i].childNodes, depth+1));
                         break;
                     case 2:
                         this.attr[child[i].nodeName] = child[i].nodeValue;
