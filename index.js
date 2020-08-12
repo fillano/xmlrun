@@ -20,6 +20,9 @@
             let ret = '';
             for(let i=0; i<n; i++) ret+='\t';
             return ret;
+        },
+        getNodeTypeDesc: function(type) {
+            return nodeType[type];
         }
     };
 
