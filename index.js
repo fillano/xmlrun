@@ -23,6 +23,14 @@
         },
         getNodeTypeDesc: function(type) {
             return nodeType[type];
+        },
+        logStore: new Map(),
+        putLog: function(o) {
+            this.logStore.set(new Date(), o);
+        },
+        dumpLog: function() {
+            console.log(this.logStore);
+            this.logStore.clear();
         }
     };
 
@@ -53,8 +61,10 @@
     };
     
     xmlnode.utils = util;
-
-    function xmlnode(data) {
+    var debug = false;
+    
+    function xmlnode(data, dSwitch) {
+        if(!!dSwitch) debug = true;
         let doc = null;
         if('undefined' !== typeof DOMParser) {
             doc = new DOMParser().parseFromString(data);
@@ -109,11 +119,13 @@
         }
         
         this.run = function() {
+            if(debug && this.depth === 0) util.putLog(process.memoryUsage());
             if(!!this.tag && !!tagRunner[this.tag]) {
                 return tagRunner[this.tag](this);
             } else {
                 return tagRunner['default'](this);
             }
+            if(debug && this.depth === 0) util.dumpLog();
         };
         this.setRunner = function(tagName, func) {
             if('function' === typeof func) {
