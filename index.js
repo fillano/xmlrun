@@ -1,6 +1,6 @@
 (function () {
     let env = null;
-    if(!!exports && !!module && !!module.exports) {
+    if('undefined' !== typeof exports && 'undefined' !== typeof module && !!module.exports) {
         exports = module.exports = xmlnode;
         env = 'module';
     } else {
