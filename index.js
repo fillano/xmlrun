@@ -119,13 +119,16 @@
         }
         
         this.run = function() {
+            let ret = null;
             if(debug && this.depth === 0) util.putLog(process.memoryUsage());
             if(!!this.tag && !!tagRunner[this.tag]) {
-                return tagRunner[this.tag](this);
+                ret = tagRunner[this.tag](this);
             } else {
-                return tagRunner['default'](this);
+                ret = tagRunner['default'](this);
             }
+            if(debug && this.depth === 0) util.putLog(process.memoryUsage());
             if(debug && this.depth === 0) util.dumpLog();
+            return ret;
         };
         this.setRunner = function(tagName, func) {
             if('function' === typeof func) {
