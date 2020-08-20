@@ -1,5 +1,6 @@
 (function () {
     let env = null;
+    let Ys = f=>g=>(x=>y=>x(y)(x))(x=>y=>f(n=>x(y)(x)(n)))(x=>y=>g(n=>x(y)(x)(n)));
     if('undefined' !== typeof exports && 'undefined' !== typeof module && !!module.exports) {
         exports = module.exports = xmlnode;
         env = 'module';
@@ -118,16 +119,17 @@
             }
         }
         
-        this.run = function() {
+        this.run = function(that) {
             let ret = null;
-            if(debug && this.depth === 0) util.putLog(process.memoryUsage());
-            if(!!this.tag && !!tagRunner[this.tag]) {
-                ret = tagRunner[this.tag](this);
+            if(!that) that = this;
+            if(debug && that.depth === 0 && env !== 'browser') util.putLog(process.memoryUsage());
+            if(!!that.tag && !!tagRunner[that.tag]) {
+                ret = tagRunner[that.tag](that);
             } else {
-                ret = tagRunner['default'](this);
+                ret = tagRunner['default'](that);
             }
-            if(debug && this.depth === 0) util.putLog(process.memoryUsage());
-            if(debug && this.depth === 0) util.dumpLog();
+            if(debug && that.depth === 0 && env !== 'browser') util.putLog(process.memoryUsage());
+            if(debug && that.depth === 0 && env !== 'browser') util.dumpLog();
             return ret;
         };
         this.setRunner = function(tagName, func) {
