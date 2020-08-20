@@ -32,7 +32,8 @@
         dumpLog: function() {
             console.log(this.logStore);
             this.logStore.clear();
-        }
+        },
+        resultStore: {}
     };
 
     const nodeType = [
