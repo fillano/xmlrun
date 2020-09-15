@@ -120,9 +120,9 @@
             }
         }
         
-        this.run = function(that) {
-            let ret = null;
+        this.run = function(that, result) {
             if(!that) that = this;
+            let ret = !!result ? result : {};
             if(debug && that.depth === 0 && env !== 'browser') util.putLog(process.memoryUsage());
             if(!!that.tag && !!tagRunner[that.tag]) {
                 ret = tagRunner[that.tag](that);
